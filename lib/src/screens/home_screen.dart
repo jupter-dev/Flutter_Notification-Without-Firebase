@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_notification/src/controllers/home_controller.dart';
 import 'package:flutter_notification/src/services/notification_service.dart';
-import 'package:provider/provider.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +15,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var controller = HomeController();
+
+  @override
+  void initState() {
+    super.initState();
+    LocalNotification.initialize(flutterLocalNotificationsPlugin);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
           return GestureDetector(
             onTap: () {
               final currentItem = lista[i];
-              Provider.of<NotificationService>(context, listen: false)
-                  .showNotification(CustomNotification(
-                      id: i,
-                      title: 'Notificação para ${currentItem.name}',
-                      body: 'Descrição: ${currentItem.description}',
-                      payload: '/notification'));
+              LocalNotification.showBigTextNotification(
+                  title: currentItem.name,
+                  body: currentItem.description,
+                  flutterLocalNotificationsPlugin:
+                      flutterLocalNotificationsPlugin);
+
+              print('Testando ${currentItem.description}');
             },
             child: ListTile(
               title: Text(lista[i].name),
