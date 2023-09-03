@@ -26,6 +26,9 @@ class LocalNotification {
       playSound: true,
       importance: Importance.max,
       priority: Priority.max,
+      icon: 'mipmap/ic_launcher',
+      channelShowBadge: true,
+      largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
     );
 
     NotificationDetails notificationDetails =
