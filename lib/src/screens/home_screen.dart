@@ -40,8 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   body: currentItem.description,
                   flutterLocalNotificationsPlugin:
                       flutterLocalNotificationsPlugin);
-
-              print('Testando ${currentItem.description}');
             },
             child: ListTile(
               title: Text(lista[i].name),
